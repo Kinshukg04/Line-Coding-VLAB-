@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Vlab: Line Coding</title>
+{% endblock %}
+{% block body %}
+<body style="background-color:AntiqueWhite;">
+
+	<header>
+
+ 		<h3>Types of digital to digital conversion</h3>
+
+ 	</header>
+ 	<main>
+ 		<ul>
+ 			<a href="{{url_for('home')}}">
+ 			<li><a href="{{url_for('unipolar')}}"><h1>Unipolar Scheme</h1></li>
+
+ 			<li><a href="{{url_for('bipolar')}}"><h1>Bipolar Scheme</h1></li>
+
+ 		</ul>
+
+ 	</main>
+
+ </body>
+ {% endblock %}
