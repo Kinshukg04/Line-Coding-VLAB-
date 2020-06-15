@@ -53,7 +53,7 @@ def unipolar():
     #pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return render_template('Unipolar.html'  )
 
-@app.route('/graphs', methods=['POST'])
+@app.route('/graphs', methods=['GET', 'POST'])
 def graphs():
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=int)
