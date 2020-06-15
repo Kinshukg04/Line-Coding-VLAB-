@@ -17,6 +17,11 @@ import numpy as np
 #%matplotlib inline
 import matplotlib.pyplot as plt
 import random
+def check(ans,response):
+    if(ans==response):
+        print("Correct")
+    else:
+        print('Incorrect')
 def myPlot(y):
     #fig = Figure()
     n = len(y)
@@ -64,6 +69,14 @@ def graphs():
         g6 = request.form.get('g6', '', type=int)
 
         print(g1,g2,g3,g4,g5,g6)
+    ans = []
+    ans.append(g1)
+    ans.append(g2)
+    ans.append(g3)
+    ans.append(g4)
+    ans.append(g5)
+    ans.append(g6)
+
 
     return render_template('graphs.html')
 @app.route('/bipolar')
