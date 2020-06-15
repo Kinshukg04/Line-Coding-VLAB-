@@ -1,20 +1,16 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 #from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
-import io
-
-
 from random import randint
-
-
-import random
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "mysuperlaptop007"
 
+unipolar_questions = []
+
 def check(question,response):
+    print(question, response)
     if(question==response):
         return "Correct. Well done!", "success"
     else:
@@ -84,13 +80,13 @@ def home():
 
 @app.route('/unipolar', methods=['GET', 'POST'])
 def unipolar():
-    question = ""
-    for i in range(6):
-        question += str(randint(0, 1))
-
-    msg = None
     if request.method=="GET":
-        return render_template('unipolar.html', question=question, msg=msg)
+        question = ""
+        for i in range(6):
+            question += str(randint(0, 1))
+
+        unipolar_questions.append(question)
+        return render_template('unipolar.html', question=question)
 
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=str)
@@ -102,12 +98,12 @@ def unipolar():
 
         response = ""+g1+g2+g3+g4+g5+g6
 
-        msg, type = check(question,response)
-        print(msg, type)
+        msg, type = check(unipolar_questions[-1],response)
+
         flash(msg, type)
         return redirect(url_for('unipolar'))
 
-    return render_template('unipolar.html', question=question, msg=msg)
+    return render_template('unipolar.html', question=question)
 @app.route('/ami')
 def ami():
     #clear_all_selections()
