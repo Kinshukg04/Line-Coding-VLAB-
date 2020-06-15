@@ -53,8 +53,18 @@ def unipolar():
     #pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return render_template('Unipolar.html'  )
 
-@app.route('/graphs')
+@app.route('/graphs', methods=['POST'])
 def graphs():
+    if request.method=="POST":
+        g1 = request.form.get('g1', '', type=int)
+        g2 = request.form.get('g2', '', type=int)
+        g3 = request.form.get('g3', '', type=int)
+        g4 = request.form.get('g4', '', type=int)
+        g5 = request.form.get('g5', '', type=int)
+        g6 = request.form.get('g6', '', type=int)
+
+        print(g1,g2,g3,g4,g5,g6)
+
     return render_template('graphs.html')
 @app.route('/bipolar')
 def bipolar():

@@ -6,33 +6,56 @@
 	.chartdiv {
 		height	: 128px;
 	}
-
-	h2 {
-		text-align: right;
-	}
-
-	h3 {
-		text-align: right;
-	}
-
-
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="jumbotron text-center mb-0">
+  <h1>Unipolar Line Encoding</h1>
+  <p>Enter '0', '+' or '-' in the cells below graph for corresponding input sequence</p>
+</div>
+<div class="container my-3">
+	<div class="mb-4">
+		<div class="chartdiv" id="lineEncodingGraph"></div>
+	</div>
+	<form method="post">
+		<div class="form-row d-flex justify-content-center">
+			<div class="col-1">
+				<input type="number" class="form-control" id="g1" name="g1" value="0" maxlength="1">
+			</div>
+			<div class="col-1">
+				<input type="number" class="form-control" id="g2" name="g2" value="0" maxlength="1">
+			</div>
+			<div class="col-1">
+				<input type="number" class="form-control" id="g3" name="g3" value="0" maxlength="1">
+			</div>
+			<div class="col-1">
+				<input type="number" class="form-control" id="g4" name="g4" value="0" maxlength="1">
+			</div>
+			<div class="col-1">
+				<input type="number" class="form-control" id="g5" name="g5" value="0" maxlength="1">
+			</div>
+			<div class="col-1">
+				<input type="number" class="form-control" id="g6" name="g6" value="0" maxlength="1">
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-center my-3">
+
+			<button type="submit" name="" class="btn btn-success mx-1" id="submitForm">Check</button>
+
+			<button type="submit" name="" class="btn btn-danger mx-1">Reset</button>
+
+		</div>
+	</form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-<div>
-	<div>
-		<h3>VOUT_EN</h3>
-		<div class="chartdiv" id="chartdiv2"></div>
-	</div>
-</div>
-
 <script>
 	/**
 	* Define chart data
@@ -69,7 +92,7 @@
 	/**
 	* Create chart
 	*/
-	var chart2 = AmCharts.makeChart("chartdiv2", {
+	var chart2 = AmCharts.makeChart("lineEncodingGraph", {
 		"type": "serial",
 		"theme": "light",
 		"addClassNames": true,
