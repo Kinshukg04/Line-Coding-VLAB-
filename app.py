@@ -12,7 +12,6 @@ ps_questions=[]
 ami_questions = []
 
 def check(question,response):
-    print(question, response)
     if(question==response):
         return "Correct. Well done!", "success"
     else:
@@ -29,15 +28,15 @@ def check_AMI(question,response):
             response_int.append(-1)
         if(response[i]=='0'):
             response_int.append(0)
-        if(question[i]==0):
+        if(question[i]=='0'):
             ans.append(0)
-        if(question[i]==1 and last_pos==0):
+        if(question[i]=='1' and last_pos==0):
             ans.append(response_int[i])
             last_pos = response_int[i]
-        elif(question[i]==1 and last_pos==1):
+        elif(question[i]=='1' and last_pos==1):
             ans.append(-1)
             last_pos = -1
-        elif(question[i]==1 and last_pos==-1):
+        elif(question[i]=='1' and last_pos==-1):
             ans.append(1)
             last_pos = 1
     if(ans==response_int):
@@ -46,6 +45,7 @@ def check_AMI(question,response):
         return "Incorrect. Please try again!", "danger"
 
 def check_psedo(question,response):
+    print(question, response)
     response_int = []
     last_pos = 0
     ans = []
@@ -106,6 +106,7 @@ def unipolar():
         return redirect(url_for('unipolar'))
 
     return render_template('unipolar.html', question=question)
+
 @app.route('/ami', methods=['GET', 'POST'])
 def ami():
     if request.method=="GET":
@@ -132,9 +133,6 @@ def ami():
         return redirect(url_for('ami'))
 
     return render_template('ami.html', question=question)
-    #clear_all_selections()
-    #return render_template('ami.html')
-
 
 @app.route('/pseudoternary', methods=['GET', 'POST'])
 def pseudoternary():
