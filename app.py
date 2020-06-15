@@ -8,7 +8,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 app = Flask(__name__)
-
+from random import randint
 import ipywidgets as wg
 from IPython.display import display
 import numpy as np
@@ -60,8 +60,10 @@ def unipolar():
 
 @app.route('/graphs', methods=['GET', 'POST'])
 def graphs():
-    num = range(0, 1)
-    ans = random.sample(num, 6)
+    question = []
+    response = []
+    for i in range(6):
+        question.append(randint(0, 1))
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=int)
         g2 = request.form.get('g2', '', type=int)
@@ -70,14 +72,16 @@ def graphs():
         g5 = request.form.get('g5', '', type=int)
         g6 = request.form.get('g6', '', type=int)
 
+        response.append(g1)
+        response.append(g2)
+        response.append(g3)
+        response.append(g4)
+        response.append(g5)
+        response.append(g6)
+
         print(g1,g2,g3,g4,g5,g6)
-    response = []
-    response.append(g1)
-    response.append(g2)
-    response.append(g3)
-    response.append(g4)
-    response.append(g5)
-    response.append(g6)
+    ans = question
+
 
     check(ans,response)
 
