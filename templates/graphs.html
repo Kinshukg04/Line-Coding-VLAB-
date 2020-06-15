@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
 
-{% block headdata %}
-<title>Graphs </title>
-<style>
-	.chartdiv {
-		height	: 128px;
-	}
-</style>
+{% block title %}Graphs - Unipolar {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
 {% endblock %}
-
 {% block content %}
 <div class="jumbotron text-center mb-0">
-  <h1>Unipolar Line Encoding</h1>
-  <p>Enter '0', '+' or '-' in the cells below graph for corresponding input sequence</p>
+	<h1>Unipolar Line Encoding</h1>
+	<p>Enter '0', '+' or '-' in the cells below graph for corresponding input sequence</p>
 </div>
 <div class="container my-3">
 	<div class="mb-4">
@@ -102,7 +97,7 @@
 			"id": "v1",
 			"axisAlpha": 0,
 			"position": "left",
-			"minimum": 0.0,
+			"minimum": -1.0,
 			"maximum": 1.0,
 			"integersOnly": true
 		}],
@@ -188,11 +183,11 @@
 			// round the value
 			value = Math.round(value);
 
-			if(value >= 0.5) {
+			if(value >= 0) {
 				value = 1.0;
 			}
 			else {
-				value = 0.0;
+				value = -1.0;
 			}
 			// update data
 			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
