@@ -3,17 +3,12 @@ from flask import Flask, render_template, url_for, request, redirect
 from datetime import datetime
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import io
-import base64
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
+
 
 app = Flask(__name__)
 from random import randint
-import ipywidgets as wg
-from IPython.display import display
-import numpy as np
-#%matplotlib inline
-import matplotlib.pyplot as plt
+
+
 import random
 
 
@@ -32,7 +27,7 @@ def home():
 
 
 @app.route('/unipolar', methods=['GET', 'POST'])
-def graphs():
+def unipolar():
     question = ""
     for i in range(6):
         question += str(randint(0, 1))
@@ -56,16 +51,16 @@ def graphs():
         return render_template('unipolar.html', question=question, msg=msg)
 
     return render_template('unipolar.html', question=question, msg=msg)
-@app.route('/bipolar')
-def bipolar():
+@app.route('/ami')
+def ami():
     #clear_all_selections()
-    return render_template('Bipolar.html')
+    return render_template('ami.html')
 
 
-@app.route('/uni_ans')
-def uni_ans():
+@app.route('/pseudoternary')
+def pseudoternary():
     #clear_all_selections()
-    return render_template('uni_ans.html')
+    return render_template('pseudoternary.html')
 
 @app.route('/bi_ans')
 def bi_ans():
