@@ -9,12 +9,15 @@
 	<h1>Unipolar Line Encoding</h1>
 	<p>Enter '0' or '1' in the cells below graph for corresponding input sequence</p>
 </div>
-{% if msg %}
-<div class="alert alert-{{ msg }} text-center" role="alert">
-	{% if msg=="success" %} Correct response {% endif %}
-	{% if msg=="danger" %} Incorrect response. Please try again. {% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} text-center" role="alert">
+	{{ message }}
 </div>
+{% endfor %}
 {% endif %}
+{% endwith %}
 <div class="container my-3">
 	<div class="text-center">
 		<h4>Bits Sequence: <span class="text-primary">{{ question }}</span></h4>
