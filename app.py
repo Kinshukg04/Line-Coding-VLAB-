@@ -9,7 +9,6 @@ from matplotlib.figure import Figure
 
 app = Flask(__name__)
 
-from 
 import ipywidgets as wg
 from IPython.display import display
 import numpy as np
