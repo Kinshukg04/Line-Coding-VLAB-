@@ -19,9 +19,9 @@ import random
 
 def check(ans,response):
     if(ans==response):
-        print("Correct")
+        return True
     else:
-        print('Incorrect')
+        return False
 def myPlot(y):
     #fig = Figure()
     n = len(y)
@@ -83,7 +83,7 @@ def graphs():
     ans = question
 
 
-    check(ans,response)
+    result = check(ans,response)
 
 
     return render_template('graphs.html')
