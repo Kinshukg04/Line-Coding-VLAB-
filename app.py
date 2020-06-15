@@ -23,43 +23,15 @@ def check(question,response):
     else:
         return "danger"
 
-def myPlot(y):
-    #fig = Figure()
-    n = len(y)
-    y.append(y[n-1])
-    x = [0,1,2,3,4,5,6]
-    plt.step(x,y,'r-',where='post')
-    plt.ylabel('V')
-    plt.xlabel('T')
-    plt.ylim([-2,2])
-    plt.xlim([0,6])
-
-
-  #plt.savefig('/static/images/new_plot.png')
-  #plt.show()
-# c_slide = wg.IntSlider(value=1,min=-1,max=1,step=1)
-#wg.interact(myPlot, c=c_slide)
 
 @app.route('/')
 def home():
     #clear_all_selections()
     return render_template('home.html')
 
-@app.route('/unipolar')
-def unipolar():
-    #clear_all_selections()
-    arr = [1,0,1,1,0,1]
-    inp = arr
-    graph = myPlot(inp)
-    #pngImage = io.BytesIO()
-    #FigureCanvas(graph).print_png(pngImage)
 
-    # Encode PNG image to base64 string
-    #pngImageB64String = "data:image/png;base64,"
-    #pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
-    return render_template('Unipolar.html'  )
 
-@app.route('/graphs', methods=['GET', 'POST'])
+@app.route('/unipolar', methods=['GET', 'POST'])
 def graphs():
     question = ""
     for i in range(6):
@@ -67,7 +39,7 @@ def graphs():
 
     msg = None
     if request.method=="GET":
-        return render_template('graphs.html', question=question, msg=msg)
+        return render_template('unipolar.html', question=question, msg=msg)
 
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=str)
@@ -81,9 +53,9 @@ def graphs():
 
         msg = check(question,response)
 
-        return render_template('graphs.html', question=question, msg=msg)
+        return render_template('unipolar.html', question=question, msg=msg)
 
-    return render_template('graphs.html', question=question, msg=msg)
+    return render_template('unipolar.html', question=question, msg=msg)
 @app.route('/bipolar')
 def bipolar():
     #clear_all_selections()
