@@ -21,6 +21,7 @@ def check_AMI(question,response):
     response_int = []
     last_pos = 0
     ans = []
+    flag = 0
     for i in range(6):
         if (response[i]=='+'):
             response_int.append(1)
@@ -30,9 +31,13 @@ def check_AMI(question,response):
             response_int.append(0)
         if(question[i]=='0'):
             ans.append(0)
-        if(question[i]=='1' and last_pos==0):
+        if(question[i]=='1' and last_pos==0 and flag==0):
             ans.append(response_int[i])
             last_pos = response_int[i]
+            flag = 1
+        elif(question[i]=='1' and last_pos==0 and flag==1):
+            ans.append(-1)
+            last_pos = -1
         elif(question[i]=='1' and last_pos==1):
             ans.append(-1)
             last_pos = -1
@@ -49,6 +54,7 @@ def check_psedo(question,response):
     response_int = []
     last_pos = 0
     ans = []
+    flag = 0
     for i in range(6):
         if (response[i]=='+'):
             response_int.append(1)
@@ -58,9 +64,14 @@ def check_psedo(question,response):
             response_int.append(0)
         if(question[i]=='1'):
             ans.append(0)
-        if(question[i]=='0' and last_pos==0):
+        if(question[i]=='0' and last_pos==0 and flag==0):
             ans.append(response_int[i])
             last_pos = response_int[i]
+            flag = 1
+        elif(question[i]=='0' and last_pos==0 and flag==1):
+            ans.append(-1)
+            last_pos = -1
+            flag = 1
         elif(question[i]=='0' and last_pos==1):
             ans.append(-1)
             last_pos = -1
