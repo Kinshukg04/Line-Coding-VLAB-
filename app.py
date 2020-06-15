@@ -53,6 +53,9 @@ def unipolar():
     #pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return render_template('Unipolar.html'  )
 
+@app.route('/graphs')
+def graphs():
+    return render_template('graphs.html')
 @app.route('/bipolar')
 def bipolar():
     #clear_all_selections()

@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block headdata %}
+<title>Graphs </title>
+<style>
+	.chartdiv {
+		height	: 128px;
+	}
+
+	h2 {
+		text-align: right;
+	}
+
+	h3 {
+		text-align: right;
+	}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<div>
+	<div>
+		<h3>VOUT_EN</h3>
+		<div class="chartdiv" id="chartdiv2"></div>
+	</div>
+</div>
+
+<script>
+	/**
+	* Define chart data
+	*/
+	var chartData = [{
+		"date": "2012-12-19",
+		"value": 0
+	}, {
+		"date": "2012-12-20",
+		"value": 0
+	}, {
+		"date": "2012-12-21",
+		"value": 0
+	}, {
+		"date": "2012-12-22",
+		"value": 0
+	}, {
+		"date": "2012-12-23",
+		"value": 1
+	}, {
+		"date": "2012-12-24",
+		"value": 1
+	}, {
+		"date": "2012-12-25",
+		"value": 1
+	}, {
+		"date": "2012-12-26",
+		"value": 1
+	}, {
+		"date": "2012-12-27",
+		"value": 1
+	}];
+
+	/**
+	* Create chart
+	*/
+	var chart2 = AmCharts.makeChart("chartdiv2", {
+		"type": "serial",
+		"theme": "light",
+		"addClassNames": true,
+		"dataDateFormat": "YYYY-MM-DD",
+		"allLabels": [ ],
+		"valueAxes": [{
+			"id": "v1",
+			"axisAlpha": 0,
+			"position": "left",
+			"minimum": 0.0,
+			"maximum": 1.0,
+			"integersOnly": true
+		}],
+		"graphs": [{
+			"type": "step",
+			"bullet": "round",
+			"bulletBorderAlpha": 1,
+			"bulletColor": "#FFFFFF",
+			"bulletSize": 5,
+			"hideBulletsCount": 50,
+			"lineThickness": 4,
+			"useLineColorForBulletBorder": true,
+			"valueField": "value"
+		}],
+		"chartCursor": {
+			"pan": false,
+			"zoomable": false,
+			"valueLineEnabled": true,
+			"valueLineBalloonEnabled": true,
+			"cursorAlpha": 0.2,
+			"valueLineAlpha": 0.2,
+			"valueBalloonsEnabled": 0,
+			"categoryBalloonEnabled": 0
+		},
+		"categoryField": "date",
+		"categoryAxis": {
+			"parseDates": false,
+			"dashLength": 1,
+			"minorGridEnabled": true,
+			"labelFunction": function(valueText, date, categoryAxis) {
+				return date.day;
+			}
+		},
+		"dataProvider": chartData
+	});
+	/**
+	* Add various events
+	*/
+	chart2.addListener("rendered", function(event) {
+
+		/**
+		* ChartCursor and its value line must be enabled for this to work
+		*/
+		if (chart2.chartCursor === undefined ||
+		chart2.chartCursor.valueLineAxis === undefined)
+		return;
+
+		/**
+		* Add generic mouse events
+		*/
+		chart2.mouseIsDown = false;
+		chart2.mouseTimeout;
+		document.body.onmousedown = function() {
+			chart2.mouseIsDown = true;
+		}
+		document.body.onmouseup = function() {
+			chart2.mouseIsDown = false;
+		}
+		document.body.onmousemove = function() {
+			if (!chart2.mouseIsDown)
+			return;
+			if (chart2.mouseTimeout)
+			clearTimeout(chart2.mouseTimeout);
+			chart2.mouseTimeout = setTimeout(function() {
+				updatePosition();
+			}, 1);
+		}
+
+		/**
+		* Add click event for plot area
+		*/
+		function updatePosition() {
+			// click outside plot area
+			if (chart2.chartCursor.index === undefined)
+			return;
+
+			// get index of the category clicked
+			var index = chart2.chartCursor.index;
+
+			// get value clicked
+			var value = chart2.chartCursor.valueLineAxis.coordinateToValue(chart2.chartCursor.vLine.y);
+
+			// round the value
+			value = Math.round(value);
+
+			if(value >= 0.5) {
+				value = 1.0;
+			}
+			else {
+				value = 0.0;
+			}
+			// update data
+			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
+			chart2.validateData();
+		};
+
+	});
+</script>
+{% endblock %}
