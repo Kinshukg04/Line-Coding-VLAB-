@@ -20,6 +20,60 @@ def check(question,response):
     else:
         return "Incorrect. Please try again!", "danger"
 
+def check_AMI(question,response):
+    response_int = []
+    last_pos = 0
+    ans = []
+    for i in range(6):
+        if (response[i]=='+'):
+            response_int.append(1)
+        if(response[i]=='-'):
+            response_int.append(-1)
+        if(response[i]=='0'):
+            response_int.append(0)
+        if(question[i]==0):
+            ans.append(0)
+        if(question[i]==1 and last_pos==0):
+            ans.append(response_int[i])
+            last_pos = response_int[i]
+        if(question[i]==1 and last_pos==1):
+            ans.append(-1)
+            last_pos = -1
+        if(question[i]==1 and last_pos==-1):
+            ans.append(1)
+            last_pos = 1
+    if(ans==response_int):
+        return "Correct. Well done!", "success"
+    else:
+        return "Incorrect. Please try again!", "danger"
+
+def check_psedo(question,response):
+    response_int = []
+    last_pos = 0
+    ans = []
+    for i in range(6):
+        if (response[i]=='+'):
+            response_int.append(1)
+        if(response[i]=='-'):
+            response_int.append(-1)
+        if(response[i]=='0'):
+            response_int.append(0)
+        if(question[i]==1):
+            ans.append(0)
+        if(question[i]==0 and last_pos==0):
+            ans.append(response_int[i])
+            last_pos = response_int[i]
+        if(question[i]==0 and last_pos==1):
+            ans.append(-1)
+            last_pos = -1
+        if(question[i]==0 and last_pos==-1):
+            ans.append(1)
+            last_pos = 1
+    if(ans==response_int):
+        return "Correct. Well done!", "success"
+    else:
+        return "Incorrect. Please try again!", "danger"
+
 
 @app.route('/')
 def home():
