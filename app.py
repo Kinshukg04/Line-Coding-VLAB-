@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "mysuperlaptop007"
 
 unipolar_questions = []
+ps_questions=[]
+ami_questions = []
 
 def check(question,response):
     print(question, response)
@@ -32,10 +34,10 @@ def check_AMI(question,response):
         if(question[i]==1 and last_pos==0):
             ans.append(response_int[i])
             last_pos = response_int[i]
-        if(question[i]==1 and last_pos==1):
+        elif(question[i]==1 and last_pos==1):
             ans.append(-1)
             last_pos = -1
-        if(question[i]==1 and last_pos==-1):
+        elif(question[i]==1 and last_pos==-1):
             ans.append(1)
             last_pos = 1
     if(ans==response_int):
@@ -59,10 +61,10 @@ def check_psedo(question,response):
         if(question[i]==0 and last_pos==0):
             ans.append(response_int[i])
             last_pos = response_int[i]
-        if(question[i]==0 and last_pos==1):
+        elif(question[i]==0 and last_pos==1):
             ans.append(-1)
             last_pos = -1
-        if(question[i]==0 and last_pos==-1):
+        elif(question[i]==0 and last_pos==-1):
             ans.append(1)
             last_pos = 1
     if(ans==response_int):
@@ -104,16 +106,64 @@ def unipolar():
         return redirect(url_for('unipolar'))
 
     return render_template('unipolar.html', question=question)
-@app.route('/ami')
+@app.route('/ami', methods=['GET', 'POST'])
 def ami():
+    if request.method=="GET":
+        question = ""
+        for i in range(6):
+            question += str(randint(0, 1))
+
+        ami_questions.append(question)
+        return render_template('ami.html', question=question)
+
+    if request.method=="POST":
+        g1 = request.form.get('g1', '', type=str)
+        g2 = request.form.get('g2', '', type=str)
+        g3 = request.form.get('g3', '', type=str)
+        g4 = request.form.get('g4', '', type=str)
+        g5 = request.form.get('g5', '', type=str)
+        g6 = request.form.get('g6', '', type=str)
+
+        response = ""+g1+g2+g3+g4+g5+g6
+
+        msg, type = check_AMI(ami_questions[-1],response)
+
+        flash(msg, type)
+        return redirect(url_for('ami'))
+
+    return render_template('ami.html', question=question)
     #clear_all_selections()
-    return render_template('ami.html')
+    #return render_template('ami.html')
 
 
-@app.route('/pseudoternary')
+@app.route('/pseudoternary', methods=['GET', 'POST'])
 def pseudoternary():
+    if request.method=="GET":
+        question = ""
+        for i in range(6):
+            question += str(randint(0, 1))
+
+        ps_questions.append(question)
+        return render_template('pseudoternary.html', question=question)
+
+    if request.method=="POST":
+        g1 = request.form.get('g1', '', type=str)
+        g2 = request.form.get('g2', '', type=str)
+        g3 = request.form.get('g3', '', type=str)
+        g4 = request.form.get('g4', '', type=str)
+        g5 = request.form.get('g5', '', type=str)
+        g6 = request.form.get('g6', '', type=str)
+
+        response = ""+g1+g2+g3+g4+g5+g6
+
+        msg, type = check_psedo(ps_questions[-1],response)
+
+        flash(msg, type)
+        return redirect(url_for('pseudoternary'))
+
+    return render_template('pseudoternary.html', question=question)
     #clear_all_selections()
-    return render_template('pseudoternary.html')
+    #return render_template('pseudoternary.html')
 
 @app.route('/bi_ans')
 def bi_ans():

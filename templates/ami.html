@@ -7,14 +7,17 @@
 {% block content %}
 <div class="jumbotron text-center mb-0">
 	<h1>AMI Line Encoding</h1>
-	<p>Enter '0' or '-' or '+' in the cells below graph for corresponding input sequence</p>
+	<p>Enter '0' or '+' or '-' in the cells below graph for corresponding input sequence</p>
 </div>
-{% if msg %}
-<div class="alert alert-{{ msg }} text-center" role="alert">
-	{% if msg=="success" %} Correct response {% endif %}
-	{% if msg=="danger" %} Incorrect response. Please try again. {% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} text-center" role="alert">
+	{{ message }}
 </div>
+{% endfor %}
 {% endif %}
+{% endwith %}
 <div class="container my-3">
 	<div class="text-center">
 		<h4>Bits Sequence: <span class="text-primary">{{ question }}</span></h4>
@@ -25,22 +28,22 @@
 	<form method="post">
 		<div class="form-row d-flex justify-content-center">
 			<div class="col-1">
-				<input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g2" name="g2" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g2" name="g2" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g3" name="g3" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g3" name="g3" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g4" name="g4" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g4" name="g4" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g5" name="g5" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g5" name="g5" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g6" name="g6" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only '+','0','-' are allowed">
+				<input type="text" class="form-control" id="g6" name="g6" value="0" pattern="^(+|0|-)$" maxlength="1" title="Only '+','0','-' are allowed">
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-center my-3">
@@ -106,7 +109,7 @@
 			"id": "v1",
 			"axisAlpha": 0,
 			"position": "left",
-			"minimum": 0.0,
+			"minimum": -1.0,
 			"maximum": 1.0,
 			"integersOnly": true
 		}],
@@ -195,8 +198,11 @@
 			if(value >= 0.5) {
 				value = 1.0;
 			}
+			else if(value>=0.0 && value<0.5){
+				value = 0.0
+			}
 			else {
-				value = 0.0;
+				value = -1.0;
 			}
 			// update data
 			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
