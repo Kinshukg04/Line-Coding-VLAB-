@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Graphs - Pseudomentary {% endblock %}
+{% block title %}Graphs - Pseudoternary {% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/charts.css') }}">
 {% endblock %}
 {% block content %}
 <div class="jumbotron text-center mb-0">
-    <h1>Pseudomentary Line Encoding</h1>
-    <p>Enter '0' or '1' in the cells below graph for corresponding input sequence</p>
+    <h1>Pseudoternary Line Encoding</h1>
+    <p>Enter '0' or '+' or '-' in the cells below graph for corresponding input sequence</p>
 </div>
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -28,7 +28,7 @@
     <form method="post">
         <div class="form-row d-flex justify-content-center">
             <div class="col-1">
-                <input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^[-|0|+]$" maxlength="1" title="Only '+','0','-' are allowed">
+                <input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^[+|0|-]$" maxlength="1" title="Only '+','0','-' are allowed">
             </div>
             <div class="col-1">
                 <input type="text" class="form-control" id="g2" name="g2" value="0" pattern="^[+|0|-]$" maxlength="1" title="Only '+','0','-' are allowed">
@@ -198,8 +198,8 @@
             if(value >= 0.5) {
                 value = 1.0;
             }
-            else if{value>= 0.0 && value<0.5}{
-                value = 0
+            else if(value>=0.0 && value<0.5){
+                value = 0.0
             }
             else {
                 value = -1.0;
