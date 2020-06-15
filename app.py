@@ -17,11 +17,12 @@ import matplotlib.pyplot as plt
 import random
 
 
-def check(ans,response):
-    if(ans==response):
-        return True
+def check(question,response):
+    if(question==response):
+        return "success"
     else:
-        return False
+        return "danger"
+
 def myPlot(y):
     #fig = Figure()
     n = len(y)
@@ -60,33 +61,29 @@ def unipolar():
 
 @app.route('/graphs', methods=['GET', 'POST'])
 def graphs():
-    question = []
-    response = []
+    question = ""
     for i in range(6):
-        question.append(randint(0, 1))
+        question += str(randint(0, 1))
+
+    msg = None
+    if request.method=="GET":
+        return render_template('graphs.html', question=question, msg=msg)
+
     if request.method=="POST":
-        g1 = request.form.get('g1', '', type=int)
-        g2 = request.form.get('g2', '', type=int)
-        g3 = request.form.get('g3', '', type=int)
-        g4 = request.form.get('g4', '', type=int)
-        g5 = request.form.get('g5', '', type=int)
-        g6 = request.form.get('g6', '', type=int)
+        g1 = request.form.get('g1', '', type=str)
+        g2 = request.form.get('g2', '', type=str)
+        g3 = request.form.get('g3', '', type=str)
+        g4 = request.form.get('g4', '', type=str)
+        g5 = request.form.get('g5', '', type=str)
+        g6 = request.form.get('g6', '', type=str)
 
-        response.append(g1)
-        response.append(g2)
-        response.append(g3)
-        response.append(g4)
-        response.append(g5)
-        response.append(g6)
+        response = ""+g1+g2+g3+g4+g5+g6
 
-        print(g1,g2,g3,g4,g5,g6)
-    ans = question
+        msg = check(question,response)
 
+        return render_template('graphs.html', question=question, msg=msg)
 
-    result = check(ans,response)
-
-
-    return render_template('graphs.html')
+    return render_template('graphs.html', question=question, msg=msg)
 @app.route('/bipolar')
 def bipolar():
     #clear_all_selections()

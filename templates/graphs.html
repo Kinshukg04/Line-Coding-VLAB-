@@ -9,12 +9,15 @@
 	<h1>Unipolar Line Encoding</h1>
 	<p>Enter '0', '1' or '-1' in the cells below graph for corresponding input sequence</p>
 </div>
-<div class="alert alert-success text-center" role="alert">
-  This is a success alert—check it out!
+{% if msg %}
+<div class="alert alert-{{ msg }} text-center" role="alert">
+	{% if msg=="success" %} Correct response {% endif %}
+	{% if msg=="danger" %} Incorrect response. Please try again. {% endif %}
 </div>
+{% endif %}
 <div class="container my-3">
 	<div class="text-center">
-		<h4>Bits Sequence: <span class="text-primary">001101</span></h4>
+		<h4>Bits Sequence: <span class="text-primary">{{ question }}</span></h4>
 	</div>
 	<div class="mb-4">
 		<div class="chartdiv" id="lineEncodingGraph"></div>
