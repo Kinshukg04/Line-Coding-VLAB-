@@ -4,19 +4,20 @@ from datetime import datetime
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import io
 import base64
-
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 app = Flask(__name__)
 
-
+from 
 import ipywidgets as wg
 from IPython.display import display
 import numpy as np
 #%matplotlib inline
 import matplotlib.pyplot as plt
 import random
+
+
 def check(ans,response):
     if(ans==response):
         print("Correct")
@@ -60,6 +61,8 @@ def unipolar():
 
 @app.route('/graphs', methods=['GET', 'POST'])
 def graphs():
+    num = range(0, 1)
+    ans = random.sample(num, 6)
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=int)
         g2 = request.form.get('g2', '', type=int)
@@ -69,13 +72,15 @@ def graphs():
         g6 = request.form.get('g6', '', type=int)
 
         print(g1,g2,g3,g4,g5,g6)
-    ans = []
-    ans.append(g1)
-    ans.append(g2)
-    ans.append(g3)
-    ans.append(g4)
-    ans.append(g5)
-    ans.append(g6)
+    response = []
+    response.append(g1)
+    response.append(g2)
+    response.append(g3)
+    response.append(g4)
+    response.append(g5)
+    response.append(g6)
+
+    check(ans,response)
 
 
     return render_template('graphs.html')
