@@ -1,22 +1,24 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 #from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import io
 
 
-app = Flask(__name__)
 from random import randint
 
 
 import random
 
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = "mysuperlaptop007"
+
 def check(question,response):
     if(question==response):
-        return "success"
+        return "Correct. Well done!", "success"
     else:
-        return "danger"
+        return "Incorrect. Please try again!", "danger"
 
 
 @app.route('/')
@@ -46,9 +48,10 @@ def unipolar():
 
         response = ""+g1+g2+g3+g4+g5+g6
 
-        msg = check(question,response)
-
-        return render_template('unipolar.html', question=question, msg=msg)
+        msg, type = check(question,response)
+        print(msg, type)
+        flash(msg, type)
+        return redirect(url_for('unipolar'))
 
     return render_template('unipolar.html', question=question, msg=msg)
 @app.route('/ami')
