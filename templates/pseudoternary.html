@@ -64,151 +64,207 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script>
-    /**
-    * Define chart data
-    */
-    var chartData = [{
-        "date": "2012-12-19",
-        "value": 0
-    }, {
-        "date": "2012-12-20",
-        "value": 0
-    }, {
-        "date": "2012-12-21",
-        "value": 0
-    }, {
-        "date": "2012-12-22",
-        "value": 0
-    }, {
-        "date": "2012-12-23",
-        "value": 1
-    }, {
-        "date": "2012-12-24",
-        "value": 1
-    }, {
-        "date": "2012-12-25",
-        "value": 1
-    }, {
-        "date": "2012-12-26",
-        "value": 1
-    }, {
-        "date": "2012-12-27",
-        "value": 1
-    }];
+	/**
+	* Define chart data
+	*/
+	var chartData = [{
+		"date": "2012-12-19",
+		"value": 0
+	}, {
+		"date": "2012-12-20",
+		"value": 0
+	}, {
+		"date": "2012-12-21",
+		"value": 0
+	}, {
+		"date": "2012-12-22",
+		"value": 0
+	}, {
+		"date": "2012-12-23",
+		"value": 1
+	}, {
+		"date": "2012-12-24",
+		"value": 1
+	}];
 
-    /**
-    * Create chart
-    */
-    var chart2 = AmCharts.makeChart("lineEncodingGraph", {
-        "type": "serial",
-        "theme": "light",
-        "addClassNames": true,
-        "dataDateFormat": "YYYY-MM-DD",
-        "allLabels": [ ],
-        "valueAxes": [{
-            "id": "v1",
-            "axisAlpha": 0,
-            "position": "left",
-            "minimum": -1.0,
-            "maximum": 1.0,
-            "integersOnly": true
-        }],
-        "graphs": [{
-            "type": "step",
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 4,
-            "useLineColorForBulletBorder": true,
-            "valueField": "value"
-        }],
-        "chartCursor": {
-            "pan": false,
-            "zoomable": false,
-            "valueLineEnabled": true,
-            "valueLineBalloonEnabled": true,
-            "cursorAlpha": 0.2,
-            "valueLineAlpha": 0.2,
-            "valueBalloonsEnabled": 0,
-            "categoryBalloonEnabled": 0
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-            "parseDates": false,
-            "dashLength": 1,
-            "minorGridEnabled": true,
-            "labelFunction": function(valueText, date, categoryAxis) {
-                return date.day;
-            }
-        },
-        "dataProvider": chartData
-    });
-    /**
-    * Add various events
-    */
-    chart2.addListener("rendered", function(event) {
+	/**
+	* Create chart
+	*/
+	var chart2 = AmCharts.makeChart("lineEncodingGraph", {
+		"type": "serial",
+		"theme": "light",
+		"addClassNames": true,
+		"dataDateFormat": "YYYY-MM-DD",
+		"allLabels": [ ],
+		"valueAxes": [{
+			"id": "v1",
+			"axisAlpha": 0,
+			"position": "left",
+			"minimum": -1.0,
+			"maximum": 1.0,
+			"integersOnly": true
+		}],
+		"graphs": [{
+			"type": "step",
+			"bullet": "round",
+			"bulletBorderAlpha": 1,
+			"bulletColor": "#FFFFFF",
+			"bulletSize": 5,
+			"hideBulletsCount": 50,
+			"lineThickness": 4,
+			"useLineColorForBulletBorder": true,
+			"valueField": "value"
+		}],
+		"chartCursor": {
+			"pan": false,
+			"zoomable": false,
+			"valueLineEnabled": true,
+			"valueLineBalloonEnabled": true,
+			"cursorAlpha": 0.2,
+			"valueLineAlpha": 0.2,
+			"valueBalloonsEnabled": 0,
+			"categoryBalloonEnabled": 0
+		},
+		"categoryField": "date",
+		"categoryAxis": {
+			"parseDates": false,
+			"dashLength": 1,
+			"minorGridEnabled": true,
+			"labelFunction": function(valueText, date, categoryAxis) {
+				return date.day;
+			}
+		},
+		"dataProvider": chartData
+	});
 
-        /**
-        * ChartCursor and its value line must be enabled for this to work
-        */
-        if (chart2.chartCursor === undefined ||
-        chart2.chartCursor.valueLineAxis === undefined)
-        return;
+	$('#g1').keyup(function() {
+		if ($('#g1').val()=='+') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g1').val()=='-') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g1').val()=='0') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g2').keyup(function() {
+		if ($('#g2').val()=='+') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g2').val()=='-') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g2').val()=='0') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g3').keyup(function() {
+		if ($('#g3').val()=='+') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g3').val()=='-') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g3').val()=='0') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g4').keyup(function() {
+		if ($('#g4').val()=='+') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g4').val()=='-') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g4').val()=='0') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g5').keyup(function() {
+		if ($('#g5').val()=='+') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g5').val()=='-') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g5').val()=='0') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g6').keyup(function() {
+		if ($('#g6').val()=='+') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g6').val()=='-') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g6').val()=='0') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
 
-        /**
-        * Add generic mouse events
-        */
-        chart2.mouseIsDown = false;
-        chart2.mouseTimeout;
-        document.body.onmousedown = function() {
-            chart2.mouseIsDown = true;
-        }
-        document.body.onmouseup = function() {
-            chart2.mouseIsDown = false;
-        }
-        document.body.onmousemove = function() {
-            if (!chart2.mouseIsDown)
-            return;
-            if (chart2.mouseTimeout)
-            clearTimeout(chart2.mouseTimeout);
-            chart2.mouseTimeout = setTimeout(function() {
-                updatePosition();
-            }, 1);
-        }
+	function updatePosition() {
+		// click outside plot area
+		if (chart2.chartCursor.index === undefined)
+		return;
+		// get index of the category clicked
+		var index = chart2.chartCursor.index;
+		if (Number.isNaN(index)) return;
+		// get value clicked
+		var value = chart2.chartCursor.valueLineAxis.coordinateToValue(chart2.chartCursor.vLine.y);
+		// round the value
+		value = Math.round(value);
 
-        /**
-        * Add click event for plot area
-        */
-        function updatePosition() {
-            // click outside plot area
-            if (chart2.chartCursor.index === undefined)
-            return;
+		if(value >= 0.5) {
+			value = 1.0;
+		}
+		else if(value>=0.0 && value<0.5){
+			value = 0.0
+		}
+		else {
+			value = -1.0;
+		}
+		// update data
+		chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
+		chart2.validateData();
+	};
 
-            // get index of the category clicked
-            var index = chart2.chartCursor.index;
+	chart2.addListener("rendered", function(event) {
 
-            // get value clicked
-            var value = chart2.chartCursor.valueLineAxis.coordinateToValue(chart2.chartCursor.vLine.y);
+		/**
+		* ChartCursor and its value line must be enabled for this to work
+		*/
+		if (chart2.chartCursor === undefined ||
+		chart2.chartCursor.valueLineAxis === undefined)
+		return;
 
-            // round the value
-            value = Math.round(value);
-
-            if(value >= 0.5) {
-                value = 1.0;
-            }
-            else if(value>=0.0 && value<0.5){
-                value = 0.0
-            }
-            else {
-                value = -1.0;
-            }
-            // update data
-            chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
-            chart2.validateData();
-        };
-
-    });
+		/**
+		* Add generic mouse events
+		*/
+		chart2.mouseIsDown = false;
+		chart2.mouseTimeout;
+		document.body.onmousedown = function() {
+			chart2.mouseIsDown = true;
+		}
+		document.body.onmouseup = function() {
+			chart2.mouseIsDown = false;
+		}
+		document.body.onmousemove = function() {
+			if (!chart2.mouseIsDown)
+			return;
+			if (chart2.mouseTimeout)
+			clearTimeout(chart2.mouseTimeout);
+			chart2.mouseTimeout = setTimeout(function() {
+				updatePosition();
+			}, 1);
+		}
+	});
 </script>
 {% endblock %}

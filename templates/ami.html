@@ -50,7 +50,7 @@
 
 			<button type="submit" name="" class="btn btn-success mx-1" id="submitForm">Check</button>
 
-			<button type="submit" name="" class="btn btn-danger mx-1">Reset</button>
+			<button type="button" name="" class="btn btn-danger mx-1">Reset</button>
 
 		</div>
 	</form>
@@ -84,15 +84,6 @@
 		"value": 1
 	}, {
 		"date": "2012-12-24",
-		"value": 1
-	}, {
-		"date": "2012-12-25",
-		"value": 1
-	}, {
-		"date": "2012-12-26",
-		"value": 1
-	}, {
-		"date": "2012-12-27",
 		"value": 1
 	}];
 
@@ -145,9 +136,106 @@
 		},
 		"dataProvider": chartData
 	});
-	/**
-	* Add various events
-	*/
+
+	$('#g1').keyup(function() {
+		if ($('#g1').val()=='+') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g1').val()=='-') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g1').val()=='0') {
+			chart2.dataProvider[0][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g2').keyup(function() {
+		if ($('#g2').val()=='+') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g2').val()=='-') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g2').val()=='0') {
+			chart2.dataProvider[1][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g3').keyup(function() {
+		if ($('#g3').val()=='+') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g3').val()=='-') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g3').val()=='0') {
+			chart2.dataProvider[2][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g4').keyup(function() {
+		if ($('#g4').val()=='+') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g4').val()=='-') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g4').val()=='0') {
+			chart2.dataProvider[3][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g5').keyup(function() {
+		if ($('#g5').val()=='+') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g5').val()=='-') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g5').val()=='0') {
+			chart2.dataProvider[4][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+	$('#g6').keyup(function() {
+		if ($('#g6').val()=='+') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = 1;
+			chart2.validateData();
+		} else if ($('#g6').val()=='-') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = -1;
+			chart2.validateData();
+		} else if ($('#g6').val()=='0') {
+			chart2.dataProvider[5][chart2.graphs[0].valueField] = 0;
+			chart2.validateData();
+		}
+	})
+
+	function updatePosition() {
+		// click outside plot area
+		if (chart2.chartCursor.index === undefined)
+		return;
+		// get index of the category clicked
+		var index = chart2.chartCursor.index;
+		if (Number.isNaN(index)) return;
+		// get value clicked
+		var value = chart2.chartCursor.valueLineAxis.coordinateToValue(chart2.chartCursor.vLine.y);
+		// round the value
+		value = Math.round(value);
+
+		if(value >= 0.5) {
+			value = 1.0;
+		}
+		else if(value>=0.0 && value<0.5){
+			value = 0.0
+		}
+		else {
+			value = -1.0;
+		}
+		// update data
+		chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
+		chart2.validateData();
+	};
+
 	chart2.addListener("rendered", function(event) {
 
 		/**
@@ -177,38 +265,6 @@
 				updatePosition();
 			}, 1);
 		}
-
-		/**
-		* Add click event for plot area
-		*/
-		function updatePosition() {
-			// click outside plot area
-			if (chart2.chartCursor.index === undefined)
-			return;
-
-			// get index of the category clicked
-			var index = chart2.chartCursor.index;
-
-			// get value clicked
-			var value = chart2.chartCursor.valueLineAxis.coordinateToValue(chart2.chartCursor.vLine.y);
-
-			// round the value
-			value = Math.round(value);
-
-			if(value >= 0.5) {
-				value = 1.0;
-			}
-			else if(value>=0.0 && value<0.5){
-				value = 0.0
-			}
-			else {
-				value = -1.0;
-			}
-			// update data
-			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
-			chart2.validateData();
-		};
-
 	});
 </script>
 {% endblock %}

@@ -1,27 +1,46 @@
 {% extends 'base.html' %}
-{% block headdata %}
-<title>Vlab: Line Coding</title>
+{% block title %}VLab: Line Coding{% endblock %}
+{% block stylesheets %}
+<style>
+	.masthead {
+		height: 100vh;
+		min-height: 500px;
+		background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+</style>
 {% endblock %}
+
 {% block content %}
-<body style="background-color:AntiqueWhite;">
+<body>
+	<!-- Full Page Image Header with Vertically Centered Content -->
+	<header class="masthead">
+		<div class="container h-100">
+			<div class="row h-100 align-items-center d-flex justify-content-between">
+				<div class="col-4 text-center">
+					<h1 class="font-weight-light"><a href="{{url_for('unipolar')}}" class="text-dark stretched-link">Unipolar</a></h1>
+					<p class="lead">Unipolar Line Encoding</p>
+				</div>
+				<div class="col-4 text-center">
+					<h1 class="font-weight-light"><a href="{{url_for('ami')}}" class="text-dark stretched-link">AMI</a></h1>
+					<p class="lead">Bipolar Line Encoding</p>
+				</div>
+				<div class="col-4 text-center">
+					<h1 class="font-weight-light"><a href="{{url_for('pseudoternary')}}" class="text-dark stretched-link">Pseudo-Ternary</a></h1>
+					<p class="lead">Bipolar Line Encoding</p>
+				</div>
+			</div>
+		</div>
+	</header>
 
-	<header>
-		<br>
-
- 		<h3>Types of digital to digital conversion</h3>
-
- 	</header>
- 	<main>
- 		<ul>
- 			
- 			<a href="{{url_for('unipolar')}}"><h1>Unipolar Scheme</h1>
- 			<br>
- 			<h1>Bipolar Scheme: </h1>
- 			<a href="{{url_for('ami')}}"><h2>		1. AMI </h2>	
- 			<a href="{{url_for('pseudoternary')}}"><h2>		2. Pseduoternary </h2>
- 		</ul>
-
- 	</main>
-
- </body>
- {% endblock %}
+	<!-- Page Content -->
+	<section class="py-5">
+		<div class="container">
+			<h2 class="font-weight-light">Page Content</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
+		</div>
+	</section>
+</body>
+{% endblock %}
