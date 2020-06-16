@@ -1,8 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
-#from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from random import randint
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "mysuperlaptop007"
@@ -10,6 +7,9 @@ app.config['SECRET_KEY'] = "mysuperlaptop007"
 unipolar_questions = []
 ps_questions=[]
 ami_questions = []
+unipolar_score = 0
+ami_score = 0
+pseudo_score = 0
 
 def check(question,response):
     if(question==response):
@@ -89,13 +89,25 @@ def check_psedo(question,response):
     else:
         return "Incorrect. Please try again!", "danger"
 
+def get_uni_score():
+    return unipolar_score
+def update_uni_score(inc):
+    global unipolar_score
+    unipolar_score += inc
+def get_ami_score():
+    return ami_score
+def update_ami_score(inc):
+    global ami_score
+    ami_score += inc
+def get_pseudo_score():
+    return pseudo_score
+def update_pseudo_score(inc):
+    global pseudo_score
+    pseudo_score += inc
 
 @app.route('/')
 def home():
-    #clear_all_selections()
     return render_template('home.html')
-
-
 
 @app.route('/unipolar', methods=['GET', 'POST'])
 def unipolar():
@@ -105,7 +117,7 @@ def unipolar():
             question += str(randint(0, 1))
 
         unipolar_questions.append(question)
-        return render_template('unipolar.html', question=question)
+        return render_template('unipolar.html', question=question, score=get_uni_score())
 
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=str)
@@ -119,10 +131,13 @@ def unipolar():
 
         msg, type = check(unipolar_questions[-1],response)
 
+        if (type=="success"):
+            update_uni_score(1)
+
         flash(msg, type)
         return redirect(url_for('unipolar'))
 
-    return render_template('unipolar.html', question=question)
+    return render_template('unipolar.html', question=question, score=get_uni_score())
 
 @app.route('/ami', methods=['GET', 'POST'])
 def ami():
@@ -132,7 +147,7 @@ def ami():
             question += str(randint(0, 1))
 
         ami_questions.append(question)
-        return render_template('ami.html', question=question)
+        return render_template('ami.html', question=question, score=get_ami_score())
 
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=str)
@@ -146,10 +161,13 @@ def ami():
 
         msg, type = check_AMI(ami_questions[-1],response)
 
+        if (type=="success"):
+            update_ami_score(1)
+
         flash(msg, type)
         return redirect(url_for('ami'))
 
-    return render_template('ami.html', question=question)
+    return render_template('ami.html', question=question, score=get_ami_score())
 
 @app.route('/pseudoternary', methods=['GET', 'POST'])
 def pseudoternary():
@@ -159,7 +177,7 @@ def pseudoternary():
             question += str(randint(0, 1))
 
         ps_questions.append(question)
-        return render_template('pseudoternary.html', question=question)
+        return render_template('pseudoternary.html', question=question, score=get_pseudo_score())
 
     if request.method=="POST":
         g1 = request.form.get('g1', '', type=str)
@@ -173,18 +191,13 @@ def pseudoternary():
 
         msg, type = check_psedo(ps_questions[-1],response)
 
+        if (type=="success"):
+            update_pseudo_score(1)
+
         flash(msg, type)
         return redirect(url_for('pseudoternary'))
 
-    return render_template('pseudoternary.html', question=question)
-    #clear_all_selections()
-    #return render_template('pseudoternary.html')
-
-@app.route('/bi_ans')
-def bi_ans():
-    #clear_all_selections()
-    return render_template('bi_ans.html')
-
+    return render_template('pseudoternary.html', question=question, score=get_pseudo_score())
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

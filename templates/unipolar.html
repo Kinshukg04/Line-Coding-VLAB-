@@ -6,6 +6,9 @@
 {% endblock %}
 {% block content %}
 <div class="jumbotron text-center mb-0">
+	<div class="float-left">
+		<p class="h4">Score:<br><span class="display-4">{{ score }}</span></p>
+	</div>
 	<h1>Unipolar Line Encoding</h1>
 	<p>Enter '0' or '1' in the cells below graph for corresponding input sequence</p>
 </div>
@@ -28,29 +31,29 @@
 	<form method="post">
 		<div class="form-row d-flex justify-content-center">
 			<div class="col-1">
-				<input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g1" name="g1" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g2" name="g2" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g2" name="g2" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g3" name="g3" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g3" name="g3" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g4" name="g4" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g4" name="g4" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g5" name="g5" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g5" name="g5" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 			<div class="col-1">
-				<input type="text" class="form-control" id="g6" name="g6" value="0" pattern="^(1|0|-1)$" maxlength="1" title="Only 1,0,-1 are allowed">
+				<input type="text" class="form-control" id="g6" name="g6" value="0" pattern="^(1|0)$" maxlength="1" title="Only 1 and 0 are allowed">
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-center my-3">
 
 			<button type="submit" name="" class="btn btn-success mx-1" id="submitForm">Check</button>
 
-			<button type="submit" name="" class="btn btn-danger mx-1">Reset</button>
+			<button type="button" name="" class="btn btn-danger mx-1">Reset</button>
 
 		</div>
 	</form>
