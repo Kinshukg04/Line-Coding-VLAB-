@@ -192,6 +192,22 @@
 		}
 	})
 
+	function updateFields(index, value) {
+        if (index==0) {
+            $('#g1').val(value);
+        } else if (index==1) {
+			$('#g2').val(value);
+		} else if (index==2) {
+			$('#g3').val(value);
+		} else if (index==3) {
+			$('#g4').val(value);
+		} else if (index==4) {
+			$('#g5').val(value);
+		} else if (index==5) {
+			$('#g6').val(value);
+		}
+    }
+
 	chart2.addListener("rendered", function(event) {
 
 		/**
@@ -246,6 +262,9 @@
 			else {
 				value = 0.0;
 			}
+
+			updateFields(index, value);
+			
 			// update data
 			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
 			chart2.validateData();
