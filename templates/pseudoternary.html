@@ -7,7 +7,7 @@
 {% block content %}
 <div class="jumbotron text-center mb-0">
     <div class="float-left">
-		<p class="h4">Score:<br><span class="display-4">{{ score }}</span></p>
+		<p class="h4">Score:<br><span class="display-4">{{ score }} - </span><span class="display-4 text-danger">{{ total - score }}</span></p>
 	</div>
     <h1>Pseudoternary Line Encoding</h1>
     <p>Enter '0' or '+' or '-' in the cells below graph for corresponding input sequence</p>
