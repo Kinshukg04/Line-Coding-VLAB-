@@ -81,10 +81,10 @@
 		"value": 0
 	}, {
 		"date": "2012-12-23",
-		"value": 1
+		"value": 0
 	}, {
 		"date": "2012-12-24",
-		"value": 1
+		"value": 0
 	}];
 
 	/**
@@ -216,9 +216,9 @@
 		else return value;
 	}
 	function updateFields(index, value) {
-        if (index==0) {
-            $('#g1').val(rewriteValue(value));
-        } else if (index==1) {
+		if (index==0) {
+			$('#g1').val(rewriteValue(value));
+		} else if (index==1) {
 			$('#g2').val(rewriteValue(value));
 		} else if (index==2) {
 			$('#g3').val(rewriteValue(value));
@@ -229,7 +229,7 @@
 		} else if (index==5) {
 			$('#g6').val(rewriteValue(value));
 		}
-    }
+	}
 
 	chart2.addListener("rendered", function(event) {
 
@@ -284,7 +284,7 @@
 			}
 
 			updateFields(index, value);
-			
+
 			// update data
 			chart2.dataProvider[index][chart2.graphs[0].valueField] = value;
 			chart2.validateData();
